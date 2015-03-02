@@ -106,7 +106,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-exe</string>
+					<string>#cmd-standard-exe</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-extended-exe</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -141,7 +145,7 @@
 		<key>cmd-com</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)(chcp|diskcomp|diskcopy|format|mode|more|tree)(\.com)?\b</string>
+			<string>\b(?i)(chcp|diskcomp|diskcopy|format|graftabl|mode|more|tree)(\.com)?\b</string>
 			<key>name</key>
 			<string>keyword.external.com.cmd</string>
 		</dict>
@@ -205,12 +209,12 @@
 			<key>name</key>
 			<string>storage.type.escape.for.cmd</string>
 		</dict>
-		<key>cmd-exe</key>
+		<key>cmd-extended-exe</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)(?&lt;!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b</string>
+			<string>\b(?i)(?&lt;!\.)(makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b</string>
 			<key>name</key>
-			<string>keyword.external.exe.cmd</string>
+			<string>keyword.extended.exe.cmd</string>
 		</dict>
 		<key>cmd-goto</key>
 		<dict>
@@ -236,7 +240,7 @@
 		<key>cmd-internal</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)(?&lt;!\.)(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|exit|for|ftype|goto|graftabl|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?!\\)\b</string>
+			<string>\b(?i)(?&lt;!\.)(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?!\\)\b</string>
 			<key>name</key>
 			<string>keyword.internal.cmd</string>
 		</dict>
@@ -356,6 +360,13 @@
 			<string>\b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion))*</string>
 			<key>name</key>
 			<string>keyword.control.setlocal.cmd</string>
+		</dict>
+		<key>cmd-standard-exe</key>
+		<dict>
+			<key>match</key>
+			<string>\b(?i)(?&lt;!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy)(?!\\|\))(\.exe)?\b</string>
+			<key>name</key>
+			<string>keyword.standard.exe.cmd</string>
 		</dict>
 		<key>cmd-string-double</key>
 		<dict>

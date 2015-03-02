@@ -31,7 +31,8 @@ repository:
     - include: '#cmd-reserved'
     - include: '#cmd-net'
     - include: '#cmd-com'
-    - include: '#cmd-exe'
+    - include: '#cmd-standard-exe'
+    - include: '#cmd-extended-exe'
     - include: '#cmd-goto'
     - include: '#cmd-internal'
     - include: '#cmd-indo'
@@ -112,17 +113,20 @@ repository:
     match: \b(?i)net(\.exe)?\s+(accounts|computer|config|continue|file|group|help|helpmsg|localgroup|pause|session|share|start|statistics|stop|time|use|user|view)\b
     name: keyword.net.exe.cmd
   cmd-com:
-    match: \b(?i)(chcp|diskcomp|diskcopy|format|mode|more|tree)(\.com)?\b
-    name: keyword.external.com.cmd # 7
-  cmd-exe:
-    match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b
-    name: keyword.external.exe.cmd # 35 + makecab + expand + regedit + reg + cmdow + cwnd + cscript + ping
+    match: \b(?i)(chcp|diskcomp|diskcopy|format|graftabl|mode|more|tree)(\.com)?\b
+    name: keyword.external.com.cmd # 8 from help
+  cmd-standard-exe:
+    match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy)(?!\\|\))(\.exe)?\b
+    name: keyword.standard.exe.cmd # 35 from help
+  cmd-extended-exe:
+    match: \b(?i)(?<!\.)(makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b
+    name: keyword.extended.exe.cmd # 8 favorites
   cmd-goto:
     match: (?i)(?<=call|goto)\s*\w+
     name: constant.other.colon.cmd
   cmd-internal:
-    match: \b(?i)(?<!\.)(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|exit|for|ftype|goto|graftabl|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?!\\)\b
-    name: keyword.internal.cmd # 44
+    match: \b(?i)(?<!\.)(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?!\\)\b
+    name: keyword.internal.cmd # 43 from help
   cmd-indo:
     match: \b(?i)(?<=\ )(in|do)(?=\ )\b
     name: keyword.control.repeat.cmd
