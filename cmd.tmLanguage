@@ -98,6 +98,10 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#cmd-net</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#cmd-com</string>
 				</dict>
 				<dict>
@@ -204,7 +208,7 @@
 		<key>cmd-exe</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)(?&lt;!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript)(?!\\|\))(\.exe)?\b</string>
+			<string>\b(?i)(?&lt;!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b</string>
 			<key>name</key>
 			<string>keyword.external.exe.cmd</string>
 		</dict>
@@ -249,6 +253,13 @@
 			<string>:\w+</string>
 			<key>name</key>
 			<string>constant.other.colon.cmd</string>
+		</dict>
+		<key>cmd-net</key>
+		<dict>
+			<key>match</key>
+			<string>\b(?i)net(\.exe)?\s+(accounts|computer|config|continue|file|group|help|helpmsg|localgroup|pause|session|share|start|statistics|stop|time|use|user|view)\b</string>
+			<key>name</key>
+			<string>keyword.net.exe.cmd</string>
 		</dict>
 		<key>cmd-parenthesis</key>
 		<dict>

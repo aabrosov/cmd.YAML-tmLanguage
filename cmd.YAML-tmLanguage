@@ -29,6 +29,7 @@ repository:
     - include: '#cmd-if'
     - include: '#cmd-setlocal'
     - include: '#cmd-reserved'
+    - include: '#cmd-net'
     - include: '#cmd-com'
     - include: '#cmd-exe'
     - include: '#cmd-goto'
@@ -107,12 +108,15 @@ repository:
   cmd-reserved:
     match: \b(?i)(con|prn|aux|nul|com[1-9]|lpt[1-9])\b
     name: keyword.reserved.cmd # 22
+  cmd-net:
+    match: \b(?i)net(\.exe)?\s+(accounts|computer|config|continue|file|group|help|helpmsg|localgroup|pause|session|share|start|statistics|stop|time|use|user|view)\b
+    name: keyword.net.exe.cmd
   cmd-com:
     match: \b(?i)(chcp|diskcomp|diskcopy|format|mode|more|tree)(\.com)?\b
     name: keyword.external.com.cmd # 7
   cmd-exe:
-    match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript)(?!\\|\))(\.exe)?\b
-    name: keyword.external.exe.cmd # 35 + makecab + expand + regedit + reg + cmdow + cwnd + cscript
+    match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b
+    name: keyword.external.exe.cmd # 35 + makecab + expand + regedit + reg + cmdow + cwnd + cscript + ping
   cmd-goto:
     match: (?i)(?<=call|goto)\s*\w+
     name: constant.other.colon.cmd
