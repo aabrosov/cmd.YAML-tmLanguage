@@ -1,0 +1,139 @@
+# [PackageDev] target_format: plist, ext: tmLanguage
+firstLineMatch: '(?i)^@echo off$'
+fileTypes:
+- bat
+- cmd
+name: DOS/Windows Batch File
+scopeName: source.cmd
+uuid: E07EC438-7B75-4437-8AA1-DA94C1E6EACC
+patterns:
+- include: '#batch'
+repository:
+  batch:
+    patterns:
+    - include: '#cmd-escape-caret'
+    - include: '#cmd-escape-for'
+    - include: '#cmd-escape-delayed'
+    - include: '#cmd-escape-find'
+    - include: '#cmd-parenthesis'
+    - include: '#cmd-keys'
+    - include: '#cmd-vars-exclam'
+    - include: '#cmd-vars-percent'
+    - include: '#cmd-vars-args'
+    - include: '#cmd-rem-colons'
+    - include: '#cmd-rem'
+    - include: '#cmd-echo-on'
+    - include: '#cmd-echo'
+    - include: '#cmd-title'
+    - include: '#cmd-set'
+    - include: '#cmd-if'
+    - include: '#cmd-setlocal'
+    - include: '#cmd-reserved'
+    - include: '#cmd-com'
+    - include: '#cmd-exe'
+    - include: '#cmd-goto'
+    - include: '#cmd-internal'
+    - include: '#cmd-indo'
+    - include: '#cmd-equ'
+    - include: '#cmd-label'
+    - include: '#cmd-string-double'
+    # - include: '#cmd-string-single'
+    - include: '#cmd-redirect'
+  cmd-escape-caret:
+    match: '\^[&<>|^]|\^$'
+    name: storage.type.escape.caret.cmd
+  cmd-escape-for:
+    match: '\^[''`,;=()]'
+    name: storage.type.escape.for.cmd
+  cmd-escape-delayed:
+    match: \^\^!
+    name: storage.type.escape.delayed.cmd
+  cmd-escape-find:
+    match: ""
+    name: storage.type.escape.find.cmd
+  cmd-parenthesis:
+    begin: \(
+    end: \)
+    captures:
+      '0': {name: markup.inserted.cmd}
+    patterns:
+    - include: '#batch'
+  cmd-keys:
+    match: (?i)(?<=[a-z =])/(\?|[a-z:/-]+)
+    name: support.function.key.cmd
+  cmd-vars-exclam:
+    match: '!.*?!'
+    name: variable.parameter.exclamation.cmd
+  cmd-vars-percent:
+    match: '%\w+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%'
+    name: variable.parameter.percent.cmd
+  cmd-vars-args:
+    match: '%%?~?d?p?n?x?s?a?t?z?(\$PATH:)?[0-9a-zA-Z\*]'
+    name: variable.parameter.argument.cmd
+  cmd-rem-colons:
+    match: ::.*(?=$|&|\||<|>)
+    name: comment.rem.cmd
+  cmd-rem:
+    match: \b(?i)(rem)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
+    captures:
+      '1': {name: keyword.rem.cmd}
+      '2': {name: comment.rem.cmd}
+  cmd-echo-on:
+    match: \b(?i)echo\s+(on|off|/\?)\s*(?=$|&|\||<|>)
+    name: keyword.echo.cmd
+  cmd-echo:
+    match: \b(?i)(echo)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
+    captures:
+      '1': {name: keyword.echo.cmd}
+      '2': {name: string.echo.cmd}
+  cmd-title:
+    match: \b(?i)(title)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
+    captures:
+      '1': {name: keyword.echo.cmd}
+      '2': {name: string.echo.cmd}
+  cmd-set:
+    match: \b(?i)(set)(?!\s*/\?)\s*(/a|/p)?\s*(\w+)(=)
+    captures:
+      '1': {name: keyword.set.cmd}
+      '2': {name: support.function.key.cmd}
+      '3': {name: variable.parameter.cmd}
+      '4': {name: markup.inserted.cmd}
+  cmd-if:
+    match: \b(?i)(if|not|else|exist|defined|errorlevel|cmdextversion)\b
+    name: keyword.control.conditional.if.cmd
+  cmd-setlocal:
+    match: \b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion))*
+    name: keyword.control.setlocal.cmd
+  cmd-reserved:
+    match: \b(?i)(con|prn|aux|nul|com[1-9]|lpt[1-9])\b
+    name: keyword.reserved.cmd # 22
+  cmd-com:
+    match: \b(?i)(chcp|diskcomp|diskcopy|format|mode|more|tree)(\.com)?\b
+    name: keyword.external.com.cmd # 7
+  cmd-exe:
+    match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy|makecab|expand|regedit|reg|cmdow|cwnd|cscript)(?!\\|\))(\.exe)?\b
+    name: keyword.external.exe.cmd # 35 + makecab + expand + regedit + reg + cmdow + cwnd + cscript
+  cmd-goto:
+    match: (?i)(?<=call|goto)\s*\w+
+    name: constant.other.colon.cmd
+  cmd-internal:
+    match: \b(?i)(?<!\.)(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|echo|endlocal|erase|exit|for|ftype|goto|graftabl|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?!\\)\b
+    name: keyword.internal.cmd # 44
+  cmd-indo:
+    match: \b(?i)(?<=\ )(in|do)(?=\ )\b
+    name: keyword.control.repeat.cmd
+  cmd-equ:
+    match: \b(?i)(?:equ|neq|lss|leq|gtr|geq)\b
+    name: keyword.operator.cmd
+  cmd-label:
+    match: :\w+
+    name: constant.other.colon.cmd
+  cmd-string-double:
+    match: '".*?"'
+    name: string.quoted.double.cmd
+  cmd-string-single:
+    match: '''.*?'''
+    name: string.quoted.single.cmd
+  cmd-redirect:
+    match: '&&|&|\|\||\||&>|\d?>&\d?|\d?(>>|>|<)|\d?<&|\d?<>'
+    name: markup.inserted.redirect.shell
