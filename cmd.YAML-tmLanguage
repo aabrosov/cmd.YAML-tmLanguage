@@ -65,7 +65,7 @@ repository:
     match: '!.*?!'
     name: variable.parameter.exclamation.cmd
   cmd-vars-percent:
-    match: '%\w+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%'
+    match: '%[\w$]+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%'
     name: variable.parameter.percent.cmd
   cmd-vars-args:
     match: '%%?~?d?p?n?x?s?a?t?z?(\$PATH:)?[0-9a-zA-Z\*]'
@@ -92,7 +92,7 @@ repository:
       '1': {name: keyword.echo.cmd}
       '2': {name: string.echo.cmd}
   cmd-set:
-    match: \b(?i)(set)(?!\s*/\?)\s*(/a|/p)?\s*(\w+)(=)
+    match: \b(?i)(set)(?!\s*/\?)\s*(/a|/p)?\s*([\w$]+)(=)
     captures:
       '1': {name: keyword.set.cmd}
       '2': {name: support.function.key.cmd}

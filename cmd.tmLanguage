@@ -337,7 +337,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(?i)(set)(?!\s*/\?)\s*(/a|/p)?\s*(\w+)(=)</string>
+			<string>\b(?i)(set)(?!\s*/\?)\s*(/a|/p)?\s*([\w$]+)(=)</string>
 		</dict>
 		<key>cmd-setlocal</key>
 		<dict>
@@ -395,7 +395,7 @@
 		<key>cmd-vars-percent</key>
 		<dict>
 			<key>match</key>
-			<string>%\w+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%</string>
+			<string>%[\w$]+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%</string>
 			<key>name</key>
 			<string>variable.parameter.percent.cmd</string>
 		</dict>
