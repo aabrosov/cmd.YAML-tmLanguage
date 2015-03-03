@@ -78,10 +78,6 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-title</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#cmd-set</string>
 				</dict>
 				<dict>
@@ -165,7 +161,7 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(?i)(echo)\b(?!\s*/\?)(.*?)(?&lt;!\^)(?=$|&amp;|\||&lt;|&gt;)</string>
+			<string>\b(?i)(echo|title)\b(?!\s*/\?)(.*?)(?&lt;!\^)(?=$|&amp;|\||&lt;|&gt;)</string>
 		</dict>
 		<key>cmd-echo-on</key>
 		<dict>
@@ -310,12 +306,12 @@
 				</dict>
 			</dict>
 			<key>match</key>
-			<string>\b(?i)(rem)\b(?!\s*/\?)(.*?)(?&lt;!\^)(?=$|&amp;|\||&lt;|&gt;)</string>
+			<string>\b(?i)(rem)\b(?!\s*/\?)(.*?)$</string>
 		</dict>
 		<key>cmd-rem-colons</key>
 		<dict>
 			<key>match</key>
-			<string>::.*(?=$|&amp;|\||&lt;|&gt;)</string>
+			<string>::(.*?)$</string>
 			<key>name</key>
 			<string>comment.rem.cmd</string>
 		</dict>
@@ -381,24 +377,6 @@
 			<string>'.*?'</string>
 			<key>name</key>
 			<string>string.quoted.single.cmd</string>
-		</dict>
-		<key>cmd-title</key>
-		<dict>
-			<key>captures</key>
-			<dict>
-				<key>1</key>
-				<dict>
-					<key>name</key>
-					<string>keyword.echo.cmd</string>
-				</dict>
-				<key>2</key>
-				<dict>
-					<key>name</key>
-					<string>string.echo.cmd</string>
-				</dict>
-			</dict>
-			<key>match</key>
-			<string>\b(?i)(title)\b(?!\s*/\?)(.*?)(?&lt;!\^)(?=$|&amp;|\||&lt;|&gt;)</string>
 		</dict>
 		<key>cmd-vars-args</key>
 		<dict>

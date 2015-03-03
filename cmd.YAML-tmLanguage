@@ -24,7 +24,6 @@ repository:
     - include: '#cmd-rem'
     - include: '#cmd-echo-on'
     - include: '#cmd-echo'
-    - include: '#cmd-title'
     - include: '#cmd-set'
     - include: '#cmd-if'
     - include: '#cmd-setlocal'
@@ -73,10 +72,10 @@ repository:
     match: '%%?~?d?p?n?x?s?a?t?z?(\$PATH:)?[0-9a-zA-Z\*]'
     name: variable.parameter.argument.cmd
   cmd-rem-colons:
-    match: ::.*(?=$|&|\||<|>)
+    match: ::(.*?)$
     name: comment.rem.cmd
   cmd-rem:
-    match: \b(?i)(rem)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
+    match: \b(?i)(rem)\b(?!\s*/\?)(.*?)$
     captures:
       '1': {name: keyword.rem.cmd}
       '2': {name: comment.rem.cmd}
@@ -84,12 +83,7 @@ repository:
     match: \b(?i)echo\s+(on|off|/\?)\s*(?=$|&|\||<|>)
     name: keyword.echo.cmd
   cmd-echo:
-    match: \b(?i)(echo)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
-    captures:
-      '1': {name: keyword.echo.cmd}
-      '2': {name: string.echo.cmd}
-  cmd-title:
-    match: \b(?i)(title)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
+    match: \b(?i)(echo|title)\b(?!\s*/\?)(.*?)(?<!\^)(?=$|&|\||<|>)
     captures:
       '1': {name: keyword.echo.cmd}
       '2': {name: string.echo.cmd}
