@@ -138,15 +138,15 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-label</string>
-				</dict>
-				<dict>
-					<key>include</key>
 					<string>#cmd-executable</string>
 				</dict>
 				<dict>
 					<key>include</key>
 					<string>#cmd-path</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-label</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -232,11 +232,7 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-standard-exe</string>
-				</dict>
-				<dict>
-					<key>include</key>
-					<string>#cmd-extended-exe</string>
+					<string>#cmd-executable</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -301,7 +297,7 @@
 		<key>cmd-executable</key>
 		<dict>
 			<key>match</key>
-			<string>(?i)[\w\*\~\-\$]+\.(com|exe|bat|cmd|vbs|vbe|js|jse|wsf|wsh|msc)(?=[\ "''])</string>
+			<string>(?i)[\w\*\~\-\$]+\.(com|exe|bat|cmd|vbs|vbe|js|jse|wsf|wsh|msc)(?=$|[\ "''])</string>
 			<key>name</key>
 			<string>keyword.executable.cmd</string>
 		</dict>
@@ -329,7 +325,7 @@
 		<key>cmd-goto</key>
 		<dict>
 			<key>match</key>
-			<string>(?i)\b(?&lt;=call|goto)\s*[\w\*\~\-]+</string>
+			<string>(?i)\b(?&lt;=call|goto)\s*[\w\*\~\-:]+</string>
 			<key>name</key>
 			<string>constant.other.colon.cmd</string>
 		</dict>
@@ -350,14 +346,14 @@
 		<key>cmd-internal</key>
 		<dict>
 			<key>match</key>
-			<string>(?i)\b(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?=$|[\ \t,;="&amp;()/])</string>
+			<string>(?i)\b(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?=$|[\ \t,;="&amp;()/:])</string>
 			<key>name</key>
 			<string>keyword.internal.cmd</string>
 		</dict>
 		<key>cmd-label</key>
 		<dict>
 			<key>match</key>
-			<string>:[\w\*\~\-\$]+</string>
+			<string>(?i)(?&lt;![a-z]):[\w\*\~\-\.\$\ ]+$</string>
 			<key>name</key>
 			<string>constant.other.colon.cmd</string>
 		</dict>
@@ -407,14 +403,14 @@
 		<key>cmd-path</key>
 		<dict>
 			<key>match</key>
-			<string>(?i)([\w\*\~\-\.\$]+)(?=\\|/)|(?&lt;=\\|/)([\w\*\~\-\.\$]+)</string>
+			<string>[\w\*\~\-\.\$]+(?=\\|/)|(?&lt;=\\|/)[\w\*\~\-\.\$:]+</string>
 			<key>name</key>
 			<string>support.function.path.cmd</string>
 		</dict>
 		<key>cmd-punctuation</key>
 		<dict>
 			<key>match</key>
-			<string>[-+='"`*,\[\]\{\}@\\/:.;!?#~$¹þ^_\t\ \(\)&lt;&gt;&amp;%]</string>
+			<string>[-+='"`*,\[\]\{\}@\\/:.;!?#~$¹þ^_\t\ \(\)&lt;&gt;&amp;%\|]</string>
 			<key>name</key>
 			<string>markup.inserted.punctuation.cmd</string>
 		</dict>

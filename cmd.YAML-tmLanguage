@@ -39,9 +39,9 @@ repository:
     - include: '#cmd-internal'
     - include: '#cmd-indo'
     - include: '#cmd-equ'
-    - include: '#cmd-label'
     - include: '#cmd-executable'
     - include: '#cmd-path'
+    - include: '#cmd-label'
     - include: '#cmd-file'
     - include: '#cmd-numbers'
     - include: '#cmd-punctuation'
@@ -57,8 +57,9 @@ repository:
     - include: '#cmd-variable'
     - include: '#cmd-argument'
     - include: '#cmd-drive'
-    - include: '#cmd-standard-exe'
-    - include: '#cmd-extended-exe'
+    # - include: '#cmd-standard-exe'
+    # - include: '#cmd-extended-exe'
+    - include: '#cmd-executable'
     - include: '#cmd-path'
     - include: '#cmd-numbers'
     - include: '#cmd-punctuation'
@@ -144,10 +145,10 @@ repository:
     match: (?i)\b(makecab|expand|regedit|cmdow|cwnd|cscript|ping|grep|sed|msiexec|iexpress|modifype)(\.exe)?(?=$|[\ \t,;="''&()/])
     name: keyword.extended.exe.cmd # 11 favorite exe
   cmd-goto:
-    match: (?i)\b(?<=call|goto)\s*[\w\*\~\-]+
+    match: (?i)\b(?<=call|goto)\s*[\w\*\~\-:]+
     name: constant.other.colon.cmd
   cmd-internal:
-    match: (?i)\b(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?=$|[\ \t,;="&()/])
+    match: (?i)\b(assoc|break|call|cd|chdir|cls|color|copy|date|del|dir|endlocal|erase|exit|for|ftype|goto|if|md|mkdir|mklink|move|path|pause|popd|prompt|pushd|rd|rem|ren|rename|rmdir|set|setlocal|shift|start|time|title|type|ver|verify|vol)(?=$|[\ \t,;="&()/:])
     name: keyword.internal.cmd # 43 from help - echo
   cmd-indo:
     match: (?i)\b(in|do)\b
@@ -155,15 +156,15 @@ repository:
   cmd-equ:
     match: (?i)\b(equ|neq|lss|leq|gtr|geq)\b
     name: keyword.operator.cmd
-  cmd-label:
-    match: :[\w\*\~\-\$]+
-    name: constant.other.colon.cmd
   cmd-executable:
-    match: (?i)[\w\*\~\-\$]+\.(com|exe|bat|cmd|vbs|vbe|js|jse|wsf|wsh|msc)(?=[\ "''])
+    match: (?i)[\w\*\~\-\$]+\.(com|exe|bat|cmd|vbs|vbe|js|jse|wsf|wsh|msc)(?=$|[\ "''])
     name: keyword.executable.cmd # from pathext
   cmd-path:
-    match: (?i)([\w\*\~\-\.\$]+)(?=\\|/)|(?<=\\|/)([\w\*\~\-\.\$]+)
+    match: '[\w\*\~\-\.\$]+(?=\\|/)|(?<=\\|/)[\w\*\~\-\.\$:]+'
     name: support.function.path.cmd
+  cmd-label:
+    match: (?i)(?<![a-z]):[\w\*\~\-\.\$\ ]+$
+    name: constant.other.colon.cmd
   cmd-file:
     match: '[\w\*\~\-\$]*\.[\w\*\~\-\$]+'
     name: support.function.file.cmd # file
@@ -171,7 +172,7 @@ repository:
     match: \d+
     name: constant.numeric.cmd
   cmd-punctuation:
-    match: '[-+=''"`*,\[\]\{\}@\\/:.;!?#~$¹þ^_\t\ \(\)<>&%]'
+    match: '[-+=''"`*,\[\]\{\}@\\/:.;!?#~$¹þ^_\t\ \(\)<>&%\|]'
     name: markup.inserted.punctuation.cmd
   cmd-other: # leftover assumes as string
     match: .
