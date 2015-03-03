@@ -26,6 +26,30 @@
 			<array>
 				<dict>
 					<key>include</key>
+					<string>#cmd-uid</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-assumption-executable</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-keys</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-drive</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-delimiter</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-folder</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#cmd-escape-caret</string>
 				</dict>
 				<dict>
@@ -46,11 +70,11 @@
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-keys</string>
+					<string>#cmd-vars-exclam</string>
 				</dict>
 				<dict>
 					<key>include</key>
-					<string>#cmd-vars-exclam</string>
+					<string>#cmd-vars-two-percent</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -82,6 +106,14 @@
 				</dict>
 				<dict>
 					<key>include</key>
+					<string>#cmd-defined</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-exist</string>
+				</dict>
+				<dict>
+					<key>include</key>
 					<string>#cmd-if</string>
 				</dict>
 				<dict>
@@ -95,6 +127,10 @@
 				<dict>
 					<key>include</key>
 					<string>#cmd-net</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-reg</string>
 				</dict>
 				<dict>
 					<key>include</key>
@@ -136,7 +172,37 @@
 					<key>include</key>
 					<string>#cmd-redirect</string>
 				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-assumption-file</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-numbers</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-punctuation</string>
+				</dict>
+				<dict>
+					<key>include</key>
+					<string>#cmd-other</string>
+				</dict>
 			</array>
+		</dict>
+		<key>cmd-assumption-executable</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)[\w\*~-]+\.(COM|EXE|BAT|CMD|VBS|VBE|JS|JSE|WSF|WSH|MSC)\b</string>
+			<key>name</key>
+			<string>keyword.assumption.exe.cmd</string>
+		</dict>
+		<key>cmd-assumption-file</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)[a-z0-9\*~-]*\.[\w\*]{1,3}\b</string>
+			<key>name</key>
+			<string>storage.type.file.cmd</string>
 		</dict>
 		<key>cmd-com</key>
 		<dict>
@@ -144,6 +210,38 @@
 			<string>\b(?i)(chcp|diskcomp|diskcopy|format|graftabl|mode|more|tree)(\.com)?\b</string>
 			<key>name</key>
 			<string>keyword.external.com.cmd</string>
+		</dict>
+		<key>cmd-defined</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)(?&lt;=defined)\s*([\w$]+)</string>
+			<key>name</key>
+			<string>variable.parameter.defined.cmd</string>
+		</dict>
+		<key>cmd-delimiter</key>
+		<dict>
+			<key>match</key>
+			<string>\\|/</string>
+			<key>name</key>
+			<string>markup.inserted.slash.cmd</string>
+		</dict>
+		<key>cmd-drive</key>
+		<dict>
+			<key>captures</key>
+			<dict>
+				<key>1</key>
+				<dict>
+					<key>name</key>
+					<string>storage.type.drive.cmd</string>
+				</dict>
+				<key>2</key>
+				<dict>
+					<key>name</key>
+					<string>markup.inserted.colon.cmd</string>
+				</dict>
+			</dict>
+			<key>match</key>
+			<string>\b(?i)([a-z])(:)</string>
 		</dict>
 		<key>cmd-echo</key>
 		<dict>
@@ -205,12 +303,26 @@
 			<key>name</key>
 			<string>storage.type.escape.for.cmd</string>
 		</dict>
+		<key>cmd-exist</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)(?&lt;=exist)\s*([\w$]+)</string>
+			<key>name</key>
+			<string>storage.type.folder.cmd</string>
+		</dict>
 		<key>cmd-extended-exe</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)(?&lt;!\.)(makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b</string>
+			<string>\b(?i)(?&lt;!\.)(makecab|expand|regedit|cmdow|cwnd|cscript|ping|grep|sed|msiexec|iexpress)(?!\\|\))(\.exe)?\b</string>
 			<key>name</key>
 			<string>keyword.extended.exe.cmd</string>
+		</dict>
+		<key>cmd-folder</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)([-\w\*.]+)(?=\\)|(?&lt;=\\)([-\w\*.]+)</string>
+			<key>name</key>
+			<string>storage.type.folder.cmd</string>
 		</dict>
 		<key>cmd-goto</key>
 		<dict>
@@ -243,7 +355,7 @@
 		<key>cmd-keys</key>
 		<dict>
 			<key>match</key>
-			<string>(?i)(?&lt;=[a-z =])/(\?|[a-z:/-]+)</string>
+			<string>(?i)(?&lt;=[a-z0-9 =]/)(\?|[\w:-]+)</string>
 			<key>name</key>
 			<string>support.function.key.cmd</string>
 		</dict>
@@ -260,6 +372,20 @@
 			<string>\b(?i)net(\.exe)?\s+(accounts|computer|config|continue|file|group|help|helpmsg|localgroup|pause|session|share|start|statistics|stop|time|use|user|view)\b</string>
 			<key>name</key>
 			<string>keyword.net.exe.cmd</string>
+		</dict>
+		<key>cmd-numbers</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)\b(KB|0x)?\d+\b</string>
+			<key>name</key>
+			<string>constant.numeric.cmd</string>
+		</dict>
+		<key>cmd-other</key>
+		<dict>
+			<key>match</key>
+			<string>.</string>
+			<key>name</key>
+			<string>string.other.cmd</string>
 		</dict>
 		<key>cmd-parenthesis</key>
 		<dict>
@@ -283,12 +409,26 @@
 				</dict>
 			</array>
 		</dict>
+		<key>cmd-punctuation</key>
+		<dict>
+			<key>match</key>
+			<string>[-+='*,\[\]\{\}@]</string>
+			<key>name</key>
+			<string>markup.inserted.punctuation.cmd</string>
+		</dict>
 		<key>cmd-redirect</key>
 		<dict>
 			<key>match</key>
 			<string>&amp;&amp;|&amp;|\|\||\||&amp;&gt;|\d?&gt;&amp;\d?|\d?(&gt;&gt;|&gt;|&lt;)|\d?&lt;&amp;|\d?&lt;&gt;</string>
 			<key>name</key>
-			<string>markup.inserted.redirect.shell</string>
+			<string>markup.inserted.redirect.cmd</string>
+		</dict>
+		<key>cmd-reg</key>
+		<dict>
+			<key>match</key>
+			<string>\b(?i)reg(\.exe)?\s+(query|add|delete|copy|save|load|unload|restore|compare|export|import|flags)\b</string>
+			<key>name</key>
+			<string>keyword.reg.exe.cmd</string>
 		</dict>
 		<key>cmd-rem</key>
 		<dict>
@@ -353,7 +493,7 @@
 		<key>cmd-setlocal</key>
 		<dict>
 			<key>match</key>
-			<string>\b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion))*</string>
+			<string>\b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion)){,2}</string>
 			<key>name</key>
 			<string>keyword.control.setlocal.cmd</string>
 		</dict>
@@ -378,6 +518,13 @@
 			<key>name</key>
 			<string>string.quoted.single.cmd</string>
 		</dict>
+		<key>cmd-uid</key>
+		<dict>
+			<key>match</key>
+			<string>(?i)[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}</string>
+			<key>name</key>
+			<string>constant.numeric.uid.cmd</string>
+		</dict>
 		<key>cmd-vars-args</key>
 		<dict>
 			<key>match</key>
@@ -395,7 +542,14 @@
 		<key>cmd-vars-percent</key>
 		<dict>
 			<key>match</key>
-			<string>%[\w$]+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%</string>
+			<string>%[\w$]+(:~-?\d+|:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%</string>
+			<key>name</key>
+			<string>variable.parameter.percent.cmd</string>
+		</dict>
+		<key>cmd-vars-two-percent</key>
+		<dict>
+			<key>match</key>
+			<string>%%[\w$]+(:~-?\d+|:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%%</string>
 			<key>name</key>
 			<string>variable.parameter.percent.cmd</string>
 		</dict>

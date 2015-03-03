@@ -11,13 +11,19 @@ patterns:
 repository:
   batch:
     patterns:
+    - include: '#cmd-uid'
+    - include: '#cmd-assumption-executable'
+    - include: '#cmd-keys'
+    - include: '#cmd-drive'
+    - include: '#cmd-delimiter'
+    - include: '#cmd-folder'
     - include: '#cmd-escape-caret'
     - include: '#cmd-escape-for'
     - include: '#cmd-escape-delayed'
     - include: '#cmd-escape-find'
     - include: '#cmd-parenthesis'
-    - include: '#cmd-keys'
     - include: '#cmd-vars-exclam'
+    - include: '#cmd-vars-two-percent'
     - include: '#cmd-vars-percent'
     - include: '#cmd-vars-args'
     - include: '#cmd-rem-colons'
@@ -25,10 +31,13 @@ repository:
     - include: '#cmd-echo-on'
     - include: '#cmd-echo'
     - include: '#cmd-set'
+    - include: '#cmd-defined'
+    - include: '#cmd-exist'
     - include: '#cmd-if'
     - include: '#cmd-setlocal'
     - include: '#cmd-reserved'
     - include: '#cmd-net'
+    - include: '#cmd-reg'
     - include: '#cmd-com'
     - include: '#cmd-standard-exe'
     - include: '#cmd-extended-exe'
@@ -40,6 +49,30 @@ repository:
     - include: '#cmd-string-double'
     # - include: '#cmd-string-single'
     - include: '#cmd-redirect'
+    - include: '#cmd-assumption-file'
+    - include: '#cmd-numbers'
+    - include: '#cmd-punctuation'
+    - include: '#cmd-other'
+  cmd-uid:
+    match: (?i)[\da-f]{8}-[\da-f]{4}-[\da-f]{4}-[\da-f]{4}-[\da-f]{12}
+    name: constant.numeric.uid.cmd
+  cmd-assumption-executable:
+    match: (?i)[\w\*~-]+\.(COM|EXE|BAT|CMD|VBS|VBE|JS|JSE|WSF|WSH|MSC)\b
+    name: keyword.assumption.exe.cmd # executable assumption
+  cmd-keys:
+    match: (?i)(?<=[a-z0-9 =]/)(\?|[\w:-]+)
+    name: support.function.key.cmd
+  cmd-drive:
+    match: \b(?i)([a-z])(:)
+    captures:
+      '1': {name: storage.type.drive.cmd}
+      '2': {name: markup.inserted.colon.cmd}
+  cmd-delimiter:
+    match: \\|/
+    name: markup.inserted.slash.cmd
+  cmd-folder:
+    match: (?i)([-\w\*.]+)(?=\\)|(?<=\\)([-\w\*.]+)
+    name: storage.type.folder.cmd
   cmd-escape-caret:
     match: '\^[&<>|^]|\^$'
     name: storage.type.escape.caret.cmd
@@ -59,14 +92,14 @@ repository:
       '0': {name: markup.inserted.cmd}
     patterns:
     - include: '#batch'
-  cmd-keys:
-    match: (?i)(?<=[a-z =])/(\?|[a-z:/-]+)
-    name: support.function.key.cmd
   cmd-vars-exclam:
     match: '!.*?!'
     name: variable.parameter.exclamation.cmd
+  cmd-vars-two-percent:
+    match: '%%[\w$]+(:~-?\d+|:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%%'
+    name: variable.parameter.percent.cmd
   cmd-vars-percent:
-    match: '%[\w$]+(:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%'
+    match: '%[\w$]+(:~-?\d+|:~-?\d+,-?\d+|:[^=%]+=[^=%]+)?%'
     name: variable.parameter.percent.cmd
   cmd-vars-args:
     match: '%%?~?d?p?n?x?s?a?t?z?(\$PATH:)?[0-9a-zA-Z\*]'
@@ -94,11 +127,17 @@ repository:
       '2': {name: support.function.key.cmd}
       '3': {name: variable.parameter.cmd}
       '4': {name: markup.inserted.cmd}
+  cmd-defined:
+    match: (?i)(?<=defined)\s*([\w$]+)
+    name: variable.parameter.defined.cmd
+  cmd-exist:
+    match: (?i)(?<=exist)\s*([\w$]+)
+    name: storage.type.folder.cmd
   cmd-if:
     match: \b(?i)(if|not|else|exist|defined|errorlevel|cmdextversion)\b
     name: keyword.control.conditional.if.cmd
   cmd-setlocal:
-    match: \b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion))*
+    match: \b(?i)setlocal(\s+(enable|disable)(extensions|delayedexpansion)){,2}
     name: keyword.control.setlocal.cmd
   cmd-reserved:
     match: \b(?i)(con|prn|aux|nul|com[1-9]|lpt[1-9])\b
@@ -106,6 +145,9 @@ repository:
   cmd-net:
     match: \b(?i)net(\.exe)?\s+(accounts|computer|config|continue|file|group|help|helpmsg|localgroup|pause|session|share|start|statistics|stop|time|use|user|view)\b
     name: keyword.net.exe.cmd
+  cmd-reg:
+    match: \b(?i)reg(\.exe)?\s+(query|add|delete|copy|save|load|unload|restore|compare|export|import|flags)\b
+    name: keyword.reg.exe.cmd
   cmd-com:
     match: \b(?i)(chcp|diskcomp|diskcopy|format|graftabl|mode|more|tree)(\.com)?\b
     name: keyword.external.com.cmd # 8 from help
@@ -113,8 +155,8 @@ repository:
     match: \b(?i)(?<!\.)(attrib|bcdedit|cacls|chkdsk|chkntfs|cmd|comp|compact|convert|diskpart|doskey|driverquery|fc|find|findstr|fsutil|gpresult|help|icacls|label|openfiles|print|recover|replace|robocopy|sc|schtasks|shutdown|sort|subst|systeminfo|taskkill|tasklist|wmic|xcopy)(?!\\|\))(\.exe)?\b
     name: keyword.standard.exe.cmd # 35 from help
   cmd-extended-exe:
-    match: \b(?i)(?<!\.)(makecab|expand|regedit|reg|cmdow|cwnd|cscript|ping)(?!\\|\))(\.exe)?\b
-    name: keyword.extended.exe.cmd # 8 favorites
+    match: \b(?i)(?<!\.)(makecab|expand|regedit|cmdow|cwnd|cscript|ping|grep|sed|msiexec|iexpress)(?!\\|\))(\.exe)?\b
+    name: keyword.extended.exe.cmd # 11 favorite exe
   cmd-goto:
     match: (?i)(?<=call|goto)\s*\w+
     name: constant.other.colon.cmd
@@ -138,4 +180,16 @@ repository:
     name: string.quoted.single.cmd
   cmd-redirect:
     match: '&&|&|\|\||\||&>|\d?>&\d?|\d?(>>|>|<)|\d?<&|\d?<>'
-    name: markup.inserted.redirect.shell
+    name: markup.inserted.redirect.cmd
+  cmd-assumption-file:
+    match: (?i)[a-z0-9\*~-]*\.[\w\*]{1,3}\b
+    name: storage.type.file.cmd # file assumption
+  cmd-numbers:
+    match: (?i)\b(KB|0x)?\d+\b
+    name: constant.numeric.cmd
+  cmd-punctuation:
+    match: '[-+=''*,\[\]\{\}@]'
+    name: markup.inserted.punctuation.cmd
+  cmd-other:
+    match: .
+    name: string.other.cmd
